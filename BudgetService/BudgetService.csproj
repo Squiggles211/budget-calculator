@@ -59,13 +59,20 @@
     <Reference Include="ServiceStack.Text">
       <HintPath>lib\ServiceStack.Text.dll</HintPath>
     </Reference>
+    <Reference Include="Mono.Posix" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Runtime.Serialization" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Program.cs" />
+    <Compile Include="AppHost.cs" />
+    <Compile Include="Services\MealService.cs" />
+    <Compile Include="Data\Meal.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
     <Folder Include="lib\" />
+    <Folder Include="Services\" />
+    <Folder Include="Data\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="lib\Mono.Data.Sqlite.dll" />
