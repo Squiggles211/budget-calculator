@@ -2,6 +2,7 @@ using System;
 using System.Data;
 using System.Collections.Generic;
 using System.Text;
+using System.Linq;
 using System.Threading.Tasks;
 
 using Mono.Unix;
@@ -34,12 +35,14 @@ namespace BudgetService
 			//Attempt a DB connection
 			try
 			{
-				container.Register<IDbConnectionFactory>(c => new OrmLiteConnectionFactory("./meals.db", SqliteOrmLiteDialectProvider.Instance));
+				container.Register<IDbConnectionFactory>(c => new OrmLiteConnectionFactory("./budgetplanning.db", SqliteOrmLiteDialectProvider.Instance));
 
-				using (var connection = container.Resolve<IDbConnectionFactory>().OpenDbConnection())
-				{
-					connection.CreateTableIfNotExists<Meal>();
-				}
+				//using (var connection = container.Resolve<IDbConnectionFactory>().OpenDbConnection())
+				//{
+					//connection.CreateTableIfNotExists<Meal>();
+					//connection.CreateTableIfNotExists<Ingredient>();
+					//connection.CreateTableIfNotExists<Recipe>();
+				//}
 
 				this.isConnectedToDB = true;
 			}
@@ -48,6 +51,20 @@ namespace BudgetService
 				e.PrintDump ();
 				Console.WriteLine ("Fatal: Cannot make connection to database, service will not be initialized!");
 			}
+
+			//Set custom request filter
+			this.RequestFilters.Clear ();
+			this.RequestFilters.Add((req, res, requestDto) =>
+			{
+				Console.WriteLine(req.AbsoluteUri);
+			});
+
+			Plugins.Add (new CorsFeature ());
+
+			SetConfig (new EndpointHostConfig
+			{
+				DebugMode = true,
+			});
 		}
 	}
 

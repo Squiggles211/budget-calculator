@@ -32,9 +32,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
-    <Reference Include="Mono.Data.Sqlite">
-      <HintPath>lib\Mono.Data.Sqlite.dll</HintPath>
-    </Reference>
+    <Reference Include="Mono.Data.Sqlite" />
     <Reference Include="ServiceStack.Common">
       <HintPath>lib\ServiceStack.Common.dll</HintPath>
     </Reference>
@@ -62,11 +60,17 @@
     <Reference Include="Mono.Posix" />
     <Reference Include="System.Data" />
     <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Data.Services" />
+    <Reference Include="System.Data.Services.Client" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AppHost.cs" />
     <Compile Include="Services\MealService.cs" />
     <Compile Include="Data\Meal.cs" />
+    <Compile Include="Data\Ingredient.cs" />
+    <Compile Include="Data\Recipe.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
