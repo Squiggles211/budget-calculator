@@ -17,7 +17,7 @@ namespace BudgetService.Data
 {
 	[Route("/meals", "GET")]
 	[Route("/meals/{uid}")]
-	public class Meal : IReturn<MealResponse>
+	public class Meal
 	{
 		[DataMember]
 		public string account { get; set; }
@@ -26,10 +26,5 @@ namespace BudgetService.Data
 		public string name { get; set; }
 
 		public Meal() { }
-	}
-
-	[DataContract]
-	public class MealResponse
-	{
 	}
 }

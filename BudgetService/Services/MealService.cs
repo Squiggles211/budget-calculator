@@ -18,11 +18,11 @@ namespace BudgetService.Services
 
 		public object Get(Meal meal)
 		{
-			var response = new List<MealResponse>();
+			var response = new List<Meal>();
 
 			var query = Db.CreateCommand();
 
-			query.CommandText = "Select * from meals ";
+			query.CommandText = "Select ACCT_NAME, MEAL_NAME from meals ";
 			int parameters = 0;
 
 			//should not retrieve meals for an account unless authenticated!
@@ -60,6 +60,14 @@ namespace BudgetService.Services
 
 					query.Prepare();
 					var reader = query.ExecuteReader();
+
+					while(reader.Read())
+					{
+						response.Add(new Meal() { 
+							account = reader.GetString(0),
+							name = reader.GetString(1)
+						});
+					}
 				}
 				catch(Exception e)
 				{
