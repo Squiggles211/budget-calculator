@@ -80,7 +80,7 @@ namespace BudgetService
 			//If the app has connected to the database, then we can start the service
 			if (appHost.isConnectedToDB)
 			{
-				appHost.Start ("http://localhost:7001/");
+				appHost.Start ("http://nitramtj.com:9090/");
 
 				UnixSignal[] signals = new UnixSignal[]
 				{
