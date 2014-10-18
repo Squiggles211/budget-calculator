@@ -86,7 +86,71 @@ namespace BudgetService.Services
 
 		public object Get(Ingredient ingredient)
 		{
-			return new List<Ingredient>();
+			var response = new List<Ingredient>();
+
+			var query = Db.CreateCommand();
+
+			query.CommandText = "Select ACCT_NAME, INGR_NAME, INGR_COST from ingredients ";
+			int parameters = 0;
+
+			//should not retrieve meals for an account unless authenticated!
+			//Also, should not retrieve anything if account is not given
+			if(ingredient.account != null && ingredient.account.Length > 0)
+			{
+				try
+				{
+					Console.WriteLine("Account not null!");
+
+					query.CommandText += "where ACCT_NAME = @acct";
+
+					var param = query.CreateParameter();
+					param.ParameterName = "@acct";
+					param.Value = ingredient.account;
+
+					//add parameter
+					query.Parameters.Add(param);
+
+					parameters++;
+
+					if(ingredient.name != null && ingredient.name.Length > 0)
+					{
+						query.CommandText += " and INGR_NAME = @ingredient";
+
+						var param2 = query.CreateParameter();
+						param2.ParameterName = "@ingredient";
+						param2.Value = ingredient.name;
+
+						//add second parameter
+						query.Parameters.Add(param2);
+
+						parameters++;
+					}
+
+					query.Prepare();
+					var reader = query.ExecuteReader();
+
+					while(reader.Read())
+					{
+						response.Add(new Ingredient() { 
+							account = reader.GetString(0),
+							name = reader.GetString(1),
+							cost = reader.GetFloat(2)
+						});
+					}
+				}
+				catch(Exception e)
+				{
+					Console.WriteLine(e.StackTrace);
+				}
+			}
+			else
+			{
+				Console.WriteLine("Account was null :(");
+			}
+
+			Console.WriteLine("After Processing.. ");
+
+			return response;
 		}
 
 		public object Get(Recipe recipe)
