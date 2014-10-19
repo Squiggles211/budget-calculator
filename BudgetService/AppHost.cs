@@ -35,7 +35,7 @@ namespace BudgetService
 			//Attempt a DB connection
 			try
 			{
-				container.Register<IDbConnectionFactory>(c => new OrmLiteConnectionFactory("./budgetplanning.db", SqliteOrmLiteDialectProvider.Instance));
+				container.Register<IDbConnectionFactory>(c => new OrmLiteConnectionFactory("./BudgetService/bin/Debug/budgetplanning.db", SqliteOrmLiteDialectProvider.Instance));
 
 				//using (var connection = container.Resolve<IDbConnectionFactory>().OpenDbConnection())
 				//{

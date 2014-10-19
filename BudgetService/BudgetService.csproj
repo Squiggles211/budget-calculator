@@ -71,6 +71,8 @@
     <Compile Include="Data\Meal.cs" />
     <Compile Include="Data\Ingredient.cs" />
     <Compile Include="Data\Recipe.cs" />
+    <Compile Include="Services\BudgetService.cs" />
+    <Compile Include="Data\Expense.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

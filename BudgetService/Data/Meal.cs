@@ -4,7 +4,6 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Runtime.Serialization;
 using System.Web;
-using System.ComponentModel.DataAnnotations;
 
 using ServiceStack.Common;
 using ServiceStack.Common.Web;
@@ -16,13 +15,11 @@ using ServiceStack.OrmLite.SqlServer;
 namespace BudgetService.Data
 {
 	[Route("/meals", "GET")]
-	[Route("/meals/{uid}")]
+	[Route("/meals/{account}", "GET")]
 	public class Meal
 	{
-		[DataMember]
 		public string account { get; set; }
 
-		[DataMember] 
 		public string name { get; set; }
 
 		public Meal() { }
