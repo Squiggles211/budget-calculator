@@ -13,20 +13,20 @@ using ServiceStack.OrmLite;
 namespace BudgetService.Data
 {
 	[Route("/ingredients", "GET")] //get all ingredients
-	[Route("/ingredients/{meal}", "GET")] //get all ingredients for a meal
-	[Route("/ingredients/{uid}", "GET")] //get an ingredient by id
-	[Route("/ingredients/{account}", "GET")] //get all ingredients for an account
+	[Route("/ingredients/{account}/{meal}", "GET")] //get a specific ingredient for a meal
 	public class Ingredient
 	{
-		[DataMember]
+		//account of the ingredient - PK/FK
 		public string account { get; set; }
 
-		[DataMember]
+		//name of the ingredient - PK
 		public string name { get; set; }
 
 		//cost as a float
-		[DataMember]
 		public float cost { get; set; }
+
+		//used to retrieve all ingredients for a specific meal if user desires
+		public string meal { get; set; }
 
 		public Ingredient ()
 		{

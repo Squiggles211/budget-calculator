@@ -90,7 +90,15 @@ namespace BudgetService.Services
 
 			var query = Db.CreateCommand();
 
-			query.CommandText = "Select ACCT_NAME, INGR_NAME, INGR_COST from ingredients ";
+			query.CommandText = "Select ingredients.ACCT_NAME, ingredients.INGR_NAME, ingredients.INGR_COST";
+
+			bool mealRequired = ingredient.meal != null && ingredient.meal.Length > 0;
+
+			if(mealRequired)
+				query.CommandText += " from ingredients, recipes";
+			else
+				query.CommandText += " from ingredients";
+
 			int parameters = 0;
 
 			//should not retrieve meals for an account unless authenticated!
@@ -101,7 +109,7 @@ namespace BudgetService.Services
 				{
 					Console.WriteLine("Account not null!");
 
-					query.CommandText += "where ACCT_NAME = @acct";
+					query.CommandText += " where ingredients.ACCT_NAME = @acct";
 
 					var param = query.CreateParameter();
 					param.ParameterName = "@acct";
@@ -112,16 +120,29 @@ namespace BudgetService.Services
 
 					parameters++;
 
-					if(ingredient.name != null && ingredient.name.Length > 0)
+					if(mealRequired)
 					{
-						query.CommandText += " and INGR_NAME = @ingredient";
+						query.CommandText += " and recipes.ACCT_NAME = ingredients.ACCT_NAME and recipes.MEAL_NAME = @meal and recipes.INGR_NAME = ingredients.INGR_NAME";
 
 						var param2 = query.CreateParameter();
-						param2.ParameterName = "@ingredient";
-						param2.Value = ingredient.name;
+						param2.ParameterName = "@meal";
+						param2.Value = ingredient.meal;
+
+						query.Parameters.Add(param2);
+
+						parameters++;
+					}
+
+					if(ingredient.name != null && ingredient.name.Length > 0)
+					{
+						query.CommandText += " and ingredients.INGR_NAME = @ingredient";
+
+						var param3 = query.CreateParameter();
+						param3.ParameterName = "@ingredient";
+						param3.Value = ingredient.name;
 
 						//add second parameter
-						query.Parameters.Add(param2);
+						query.Parameters.Add(param3);
 
 						parameters++;
 					}
