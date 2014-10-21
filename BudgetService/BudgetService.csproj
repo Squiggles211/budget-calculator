@@ -73,6 +73,7 @@
     <Compile Include="Data\Recipe.cs" />
     <Compile Include="Services\BudgetService.cs" />
     <Compile Include="Data\Expense.cs" />
+    <Compile Include="Data\DayPlan.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

@@ -13,6 +13,7 @@ using ServiceStack.OrmLite;
 namespace BudgetService.Data
 {
 	[Route("/ingredients", "GET")] //get all ingredients
+	[Route("/ingredients/{account}", "GET")] //gets all ingredients for an account
 	[Route("/ingredients/{account}/{meal}", "GET")] //get a specific ingredient for a meal
 	public class Ingredient
 	{

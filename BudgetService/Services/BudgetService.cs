@@ -18,7 +18,12 @@ namespace BudgetService.Services
 
 		public object Get(Expense expense)
 		{
-			return null;
+			return new List<Expense>();
+		}
+
+		public object Get (DayPlan plan)
+		{
+			return new List<DayPlan>();
 		}
 	}
 }

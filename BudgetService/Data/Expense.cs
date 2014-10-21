@@ -11,10 +11,21 @@ using ServiceStack.ServiceHost;
 
 namespace BudgetService.Data
 {
-	[Route("/expenses", "GET")]
+	//Allow a user to retrieve their expenses month by month, or retrieve all
+
 	[Route("/expenses/{account}", "GET")]
+	[Route("/expenses/{account}/{year}/{month}", "GET")]
 	public class Expense
 	{
+		public string account { get; set; }
+
+		//if expense is recurring, year and month can be anything as they are ignored (force db constraint?)
+		public bool recurring { get; set; }
+
+		public int year { get; set; }
+
+		public int month { get; set; }
+
 		public Expense ()
 		{
 		}
